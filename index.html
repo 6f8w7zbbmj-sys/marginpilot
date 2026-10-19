@@ -3,36 +3,32 @@
 <html lang="de-CH">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta name="google-site-verification" content="oWCJLrVl1GYo7V5ZgeywUawIXDmv8YX6nBRqca0p8Sg">
-
-  <meta name="description" content="Berechne kostenlos deinen Gewinn, deine Gewinnmarge und deinen Preisaufschlag. Mit Versand, Verpackung und zusätzlichen Kosten.">
+  <meta name="description" content="Berechne kostenlos Gewinn, Gewinnmarge, Zusatzkosten und den optimalen Verkaufspreis mit MarginPilot.">
   <meta name="theme-color" content="#101b30">
 
-  <title>MarginPilot – Gewinnmarge und Verkaufspreis berechnen</title>
+  <title>MarginPilot – Gewinn- und Verkaufspreisrechner</title>
 
   <style>
     :root {
       --navy: #101b30;
       --green: #197d62;
       --green-dark: #12664f;
-      --background: #f3f5fb;
+      --bg: #f3f5fb;
       --text: #172033;
       --muted: #697386;
       --border: #dce1ea;
-      --card: #ffffff;
+      --card: #fff;
       --result: #eff7f3;
-      --error: #b42318;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--background);
+      background: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Helvetica, Arial, sans-serif;
@@ -45,9 +41,7 @@
       padding: 22px 20px;
     }
 
-    .header-inner,
-    main,
-    footer {
+    .header-inner, main, footer {
       width: min(100% - 32px, 850px);
       margin: 0 auto;
     }
@@ -58,13 +52,11 @@
       letter-spacing: -1px;
     }
 
-    .brand span {
-      color: #5dd8b1;
-    }
+    .brand span { color: #5dd8b1; }
 
     .hero {
       text-align: center;
-      padding: 55px 0 36px;
+      padding: 48px 0 32px;
     }
 
     h1 {
@@ -85,28 +77,18 @@
       background: var(--card);
       border-radius: 24px;
       padding: clamp(20px, 5vw, 34px);
-      box-shadow: 0 8px 30px rgba(16, 27, 48, 0.05);
+      box-shadow: 0 8px 30px rgba(16, 27, 48, .05);
+      margin-bottom: 24px;
     }
 
-    h2 {
-      margin: 0 0 22px;
-      font-size: 24px;
-      line-height: 1.3;
-    }
+    h2 { margin: 0 0 20px; font-size: 24px; }
+    h3 { margin: 28px 0 14px; font-size: 19px; }
 
-    h3 {
-      margin: 28px 0 14px;
-      font-size: 18px;
-    }
-
-    .field {
-      margin-bottom: 20px;
-    }
+    .field { margin-bottom: 18px; }
 
     label {
       display: block;
       margin-bottom: 8px;
-      font-size: 16px;
       font-weight: 700;
     }
 
@@ -125,7 +107,6 @@
       padding: 0 15px;
       background: #f7f8fb;
       color: var(--muted);
-      font-size: 17px;
     }
 
     input {
@@ -137,12 +118,12 @@
       color: var(--text);
       background: transparent;
       font: inherit;
-      font-size: 19px;
+      font-size: 18px;
     }
 
     .input-wrap:focus-within {
       border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(25, 125, 98, 0.12);
+      box-shadow: 0 0 0 3px rgba(25, 125, 98, .12);
     }
 
     .hint {
@@ -152,118 +133,72 @@
       font-size: 13px;
     }
 
-    .section-divider {
-      margin: 26px 0;
+    .divider {
+      margin: 25px 0;
       border: 0;
       border-top: 1px solid #e8ebf1;
     }
 
     button {
       width: 100%;
-      min-height: 60px;
-      margin-top: 4px;
+      min-height: 58px;
+      margin-top: 5px;
       border: 0;
       border-radius: 13px;
       background: var(--green);
       color: white;
       font: inherit;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 750;
       cursor: pointer;
-      transition: background 0.15s, transform 0.15s;
     }
 
-    button:hover {
-      background: var(--green-dark);
-    }
-
-    button:active {
-      transform: scale(0.99);
-    }
-
-    .error {
-      display: none;
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #fff1f0;
-      color: var(--error);
-      font-size: 14px;
-    }
+    button:hover { background: var(--green-dark); }
 
     .results {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 28px;
+      gap: 13px;
+      margin-top: 25px;
     }
 
     .result-card {
       min-width: 0;
-      padding: 20px;
-      border-radius: 17px;
+      padding: 18px;
+      border-radius: 16px;
       background: var(--result);
     }
 
-    .result-label {
-      color: var(--muted);
-      font-size: 15px;
-    }
+    .result-label { color: var(--muted); font-size: 14px; }
 
     .result-value {
       display: block;
       margin-top: 7px;
       overflow-wrap: anywhere;
-      font-size: clamp(20px, 4vw, 27px);
+      font-size: clamp(19px, 4vw, 26px);
       font-weight: 800;
       line-height: 1.3;
     }
 
-    .result-card:first-child .result-value {
-      color: var(--green);
-    }
+    .result-card:first-child .result-value { color: var(--green); }
 
-    .info {
-      padding: 30px 4px 10px;
-      color: #4d586b;
-    }
+    .info { padding: 22px 4px; color: #4d586b; }
+    .info h2 { color: var(--text); margin-bottom: 10px; }
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: 13px; text-align: center; }
 
-    .info h2 {
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-
-    .info p {
-      margin-top: 8px;
-    }
-
-    footer {
-      padding: 28px 0 40px;
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
+    .error {
+      display: none;
+      padding: 12px;
+      margin-top: 12px;
+      background: #fff1f0;
+      color: #b42318;
+      border-radius: 10px;
     }
 
     @media (max-width: 440px) {
-      .hero {
-        padding-top: 40px;
-      }
-
-      .results {
-        gap: 10px;
-      }
-
-      .result-card {
-        padding: 15px 13px;
-      }
-
-      .result-label {
-        font-size: 14px;
-      }
-
-      .currency {
-        padding: 0 11px;
-      }
+      .results { gap: 10px; }
+      .result-card { padding: 14px 12px; }
+      .currency { padding: 0 11px; }
     }
   </style>
 </head>
@@ -279,21 +214,20 @@
     <section class="hero">
       <h1>Verstehe deinen Gewinn.</h1>
       <p>
-        Berechne deinen Gewinn, deine Gewinnmarge und deinen
-        Preisaufschlag in Sekunden. Kostenlos und einfach.
+        Berechne deinen Gewinn, deine Gewinnmarge und den passenden
+        Verkaufspreis. Kostenlos und einfach.
       </p>
     </section>
 
-    <section class="calculator" aria-labelledby="calculator-title">
-      <h2 id="calculator-title">Dein Gewinnrechner</h2>
+    <section class="calculator">
+      <h2>Gewinn berechnen</h2>
 
       <form id="profit-form">
         <div class="field">
           <label for="cost">Einkaufspreis pro Stück</label>
           <div class="input-wrap">
             <span class="currency">CHF</span>
-            <input id="cost" name="cost" type="number"
-              min="0" step="0.01" value="40" required>
+            <input id="cost" type="number" min="0" step="0.01" value="40" required>
           </div>
         </div>
 
@@ -301,12 +235,9 @@
           <label for="price">Verkaufspreis pro Stück</label>
           <div class="input-wrap">
             <span class="currency">CHF</span>
-            <input id="price" name="price" type="number"
-              min="0.01" step="0.01" value="70" required>
+            <input id="price" type="number" min="0.01" step="0.01" value="70" required>
           </div>
         </div>
-
-        <hr class="section-divider">
 
         <h3>Zusätzliche Kosten pro Stück</h3>
 
@@ -314,8 +245,7 @@
           <label for="shipping">Versandkosten</label>
           <div class="input-wrap">
             <span class="currency">CHF</span>
-            <input id="shipping" name="shipping" type="number"
-              min="0" step="0.01" value="0" required>
+            <input id="shipping" type="number" min="0" step="0.01" value="0" required>
           </div>
         </div>
 
@@ -323,8 +253,7 @@
           <label for="packaging">Verpackungskosten</label>
           <div class="input-wrap">
             <span class="currency">CHF</span>
-            <input id="packaging" name="packaging" type="number"
-              min="0" step="0.01" value="0" required>
+            <input id="packaging" type="number" min="0" step="0.01" value="0" required>
           </div>
         </div>
 
@@ -332,17 +261,13 @@
           <label for="fees">Sonstige Gebühren</label>
           <div class="input-wrap">
             <span class="currency">CHF</span>
-            <input id="fees" name="fees" type="number"
-              min="0" step="0.01" value="0" required>
+            <input id="fees" type="number" min="0" step="0.01" value="0" required>
           </div>
-          <span class="hint">
-            Zum Beispiel Verkaufsplattform- oder Zahlungsgebühren
-            als fixer Betrag pro Stück.
-          </span>
+          <span class="hint">Zum Beispiel fixe Plattform- oder Zahlungsgebühren.</span>
         </div>
 
         <button type="submit">Gewinn berechnen</button>
-        <div id="error" class="error" role="alert"></div>
+        <div id="error1" class="error" role="alert"></div>
       </form>
 
       <div class="results" aria-live="polite">
@@ -350,27 +275,22 @@
           <span class="result-label">Gewinn pro Stück</span>
           <strong class="result-value" id="profit">CHF 30.00</strong>
         </div>
-
         <div class="result-card">
           <span class="result-label">Gewinnmarge</span>
           <strong class="result-value" id="margin">42.86 %</strong>
         </div>
-
         <div class="result-card">
           <span class="result-label">Preisaufschlag</span>
           <strong class="result-value" id="markup">75.00 %</strong>
         </div>
-
         <div class="result-card">
           <span class="result-label">Verkaufspreis</span>
           <strong class="result-value" id="selling-price">CHF 70.00</strong>
         </div>
-
         <div class="result-card">
           <span class="result-label">Gesamtkosten pro Stück</span>
           <strong class="result-value" id="total-cost">CHF 40.00</strong>
         </div>
-
         <div class="result-card">
           <span class="result-label">Zusatzkosten pro Stück</span>
           <strong class="result-value" id="extra-cost">CHF 0.00</strong>
@@ -378,31 +298,95 @@
       </div>
     </section>
 
+    <section class="calculator">
+      <h2>Verkaufspreis automatisch berechnen</h2>
+      <p>
+        Lege fest, welche Gewinnmarge du erreichen möchtest.
+        MarginPilot berechnet den nötigen Verkaufspreis inklusive Zusatzkosten.
+      </p>
+
+      <form id="target-form">
+        <div class="field">
+          <label for="target-cost">Einkaufspreis pro Stück</label>
+          <div class="input-wrap">
+            <span class="currency">CHF</span>
+            <input id="target-cost" type="number" min="0" step="0.01" value="40" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="target-shipping">Versandkosten</label>
+          <div class="input-wrap">
+            <span class="currency">CHF</span>
+            <input id="target-shipping" type="number" min="0" step="0.01" value="5" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="target-packaging">Verpackungskosten</label>
+          <div class="input-wrap">
+            <span class="currency">CHF</span>
+            <input id="target-packaging" type="number" min="0" step="0.01" value="2" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="target-fees">Sonstige Gebühren</label>
+          <div class="input-wrap">
+            <span class="currency">CHF</span>
+            <input id="target-fees" type="number" min="0" step="0.01" value="3" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="target-margin">Gewünschte Gewinnmarge (%)</label>
+          <div class="input-wrap">
+            <input id="target-margin" type="number" min="0" max="99.99"
+              step="0.01" value="30" required>
+            <span class="currency">%</span>
+          </div>
+          <span class="hint">Die Marge ist der Anteil des Gewinns am Verkaufspreis.</span>
+        </div>
+
+        <button type="submit">Verkaufspreis berechnen</button>
+        <div id="error2" class="error" role="alert"></div>
+      </form>
+
+      <div class="results" aria-live="polite">
+        <div class="result-card">
+          <span class="result-label">Benötigter Verkaufspreis</span>
+          <strong class="result-value" id="target-price">CHF 71.43</strong>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Gewinn pro Stück</span>
+          <strong class="result-value" id="target-profit">CHF 21.43</strong>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Gesamtkosten</span>
+          <strong class="result-value" id="target-total">CHF 50.00</strong>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Zielmarge</span>
+          <strong class="result-value" id="target-result-margin">30.00 %</strong>
+        </div>
+      </div>
+    </section>
+
     <section class="info">
       <h2>So funktioniert MarginPilot</h2>
       <p>
-        Gib deinen Einkaufspreis und Verkaufspreis ein. Ergänze
-        Versand, Verpackung und weitere fixe Kosten pro Stück.
-        MarginPilot berechnet daraus deinen Gewinn und deine Kennzahlen.
-      </p>
-
-      <p>
-        <strong>Gewinn:</strong> Verkaufspreis minus Einkaufspreis
-        und zusätzliche Kosten.
+        Der Gewinn entspricht dem Verkaufspreis abzüglich Einkaufspreis
+        und zusätzlicher Kosten. Die Gewinnmarge ist der Gewinn geteilt
+        durch den Verkaufspreis, multipliziert mit 100.
       </p>
       <p>
-        <strong>Gewinnmarge:</strong> Gewinn geteilt durch
-        Verkaufspreis, multipliziert mit 100.
+        Für die automatische Preisberechnung werden die Gesamtkosten
+        durch (1 − gewünschte Marge / 100) geteilt.
       </p>
       <p>
-        <strong>Preisaufschlag:</strong> Gewinn geteilt durch
-        Gesamtkosten, multipliziert mit 100.
-      </p>
-      <p>
-        Hinweis: Prozentuale Plattform- oder Zahlungsgebühren,
-        Steuern und weitere variable Kosten müssen separat in
-        passende Beträge pro Stück umgerechnet werden. Die
-        Berechnung ist eine Orientierung und keine Steuerberatung.
+        Hinweis: Prozentuale Gebühren, Steuern und weitere variable Kosten
+        müssen separat berücksichtigt werden. MarginPilot bietet eine
+        Orientierung und ersetzt keine Steuerberatung.
       </p>
     </section>
   </main>
@@ -412,9 +396,6 @@
   </footer>
 
   <script>
-    const form = document.getElementById("profit-form");
-    const errorBox = document.getElementById("error");
-
     const money = new Intl.NumberFormat("de-CH", {
       style: "currency",
       currency: "CHF",
@@ -422,82 +403,91 @@
       maximumFractionDigits: 2
     });
 
-    const percent = new Intl.NumberFormat("de-CH", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
+    const pct = n => Number(n).toFixed(2) + " %";
+    const val = id => Number(document.getElementById(id).value);
+    const set = (id, text) => {
+      document.getElementById(id).textContent = text;
+    };
 
-    function valueOf(id) {
-      return Number(document.getElementById(id).value);
+    function error(id, message) {
+      const box = document.getElementById(id);
+      box.textContent = message;
+      box.style.display = "block";
     }
 
-    function showError(message) {
-      errorBox.textContent = message;
-      errorBox.style.display = "block";
+    function clearError(id) {
+      const box = document.getElementById(id);
+      box.textContent = "";
+      box.style.display = "none";
     }
 
-    function clearError() {
-      errorBox.textContent = "";
-      errorBox.style.display = "none";
-    }
+    document.getElementById("profit-form").addEventListener("submit", event => {
+      event.preventDefault();
 
-    function calculate() {
-      const cost = valueOf("cost");
-      const price = valueOf("price");
-      const shipping = valueOf("shipping");
-      const packaging = valueOf("packaging");
-      const fees = valueOf("fees");
-
+      const cost = val("cost");
+      const price = val("price");
+      const shipping = val("shipping");
+      const packaging = val("packaging");
+      const fees = val("fees");
       const values = [cost, price, shipping, packaging, fees];
 
-      if (values.some(value => !Number.isFinite(value) || value < 0)) {
-        showError("Bitte gib gültige, nicht negative Beträge ein.");
+      if (values.some(n => !Number.isFinite(n) || n < 0)) {
+        error("error1", "Bitte gib gültige, nicht negative Beträge ein.");
         return;
       }
 
       if (price <= 0) {
-        showError("Der Verkaufspreis muss grösser als CHF 0 sein.");
+        error("error1", "Der Verkaufspreis muss grösser als CHF 0 sein.");
         return;
       }
 
-      const extraCost = shipping + packaging + fees;
-      const totalCost = cost + extraCost;
-      const profit = price - totalCost;
-      const margin = (profit / price) * 100;
-      const markup = totalCost > 0
-        ? (profit / totalCost) * 100
-        : null;
+      const extra = shipping + packaging + fees;
+      const total = cost + extra;
+      const profit = price - total;
 
-      document.getElementById("profit").textContent =
-        money.format(profit);
+      set("profit", money.format(profit));
+      set("margin", pct(profit / price * 100));
+      set("markup", total > 0 ? pct(profit / total * 100) : "Nicht verfügbar");
+      set("selling-price", money.format(price));
+      set("total-cost", money.format(total));
+      set("extra-cost", money.format(extra));
 
-      document.getElementById("margin").textContent =
-        percent.format(margin) + " %";
-
-      document.getElementById("markup").textContent =
-        markup === null ? "Nicht verfügbar" : percent.format(markup) + " %";
-
-      document.getElementById("selling-price").textContent =
-        money.format(price);
-
-      document.getElementById("total-cost").textContent =
-        money.format(totalCost);
-
-      document.getElementById("extra-cost").textContent =
-        money.format(extraCost);
-
-      clearError();
-    }
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      calculate();
+      clearError("error1");
     });
 
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    document.getElementById("target-form").addEventListener("submit", event => {
+      event.preventDefault();
 
-    calculate();
+      const cost = val("target-cost");
+      const shipping = val("target-shipping");
+      const packaging = val("target-packaging");
+      const fees = val("target-fees");
+      const margin = val("target-margin");
+      const values = [cost, shipping, packaging, fees, margin];
+
+      if (values.some(n => !Number.isFinite(n) || n < 0)) {
+        error("error2", "Bitte gib gültige, nicht negative Werte ein.");
+        return;
+      }
+
+      if (margin >= 100) {
+        error("error2", "Die gewünschte Marge muss kleiner als 100 % sein.");
+        return;
+      }
+
+      const total = cost + shipping + packaging + fees;
+      const price = total / (1 - margin / 100);
+      const profit = price - total;
+
+      set("target-price", money.format(price));
+      set("target-profit", money.format(profit));
+      set("target-total", money.format(total));
+      set("target-result-margin", pct(margin));
+
+      clearError("error2");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
