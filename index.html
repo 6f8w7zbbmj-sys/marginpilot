@@ -1,527 +1,354 @@
 
-
 <!DOCTYPE html>
-
 <html lang="de">
-
 <head>
-
   <meta charset="UTF-8">
-
+  <meta name="google-site-verification" content="oWCJLrVl1GYo7V5ZgeywUawIXDmv8YX6nBRqca0p8Sg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description" content="MarginPilot ist dein kostenloser Gewinnmargen-Rechner für Unternehmen.">
-
-  <title>MarginPilot – Gewinnmargen-Rechner</title>
+  <meta name="description" content="Berechne kostenlos deinen Gewinn, deine Gewinnmarge und deinen Preisaufschlag mit MarginPilot.">
+  <meta name="robots" content="index,follow">
+  <title>MarginPilot – Kostenloser Gewinnmargen-Rechner</title>
 
   <style>
-
     * {
-
       box-sizing: border-box;
-
     }
 
     body {
-
       margin: 0;
-
       font-family: Arial, sans-serif;
-
       background: #f3f6fb;
-
       color: #172033;
-
     }
 
     header {
-
       background: #101a30;
-
       color: white;
-
       padding: 22px;
-
       font-size: 24px;
-
       font-weight: bold;
-
     }
 
     header span {
-
       color: #65e6b5;
-
     }
 
     main {
-
       width: min(100% - 32px, 680px);
-
       margin: 45px auto;
-
     }
 
     .intro {
-
       text-align: center;
-
       margin-bottom: 30px;
-
     }
 
     h1 {
-
       font-size: clamp(28px, 7vw, 40px);
-
       margin-bottom: 12px;
-
     }
 
     .intro p {
-
       color: #667085;
-
       line-height: 1.6;
-
     }
 
     .card {
-
       background: white;
-
       padding: 25px;
-
       border-radius: 18px;
-
       box-shadow: 0 10px 35px #1820330d;
-
     }
 
     .field {
-
       margin-bottom: 20px;
-
     }
 
     label {
-
       display: block;
-
       font-weight: bold;
-
       margin-bottom: 8px;
-
     }
 
     .input-wrap {
-
       display: flex;
-
       align-items: center;
-
       border: 1px solid #d8deea;
-
       border-radius: 10px;
-
       overflow: hidden;
-
     }
 
     .input-wrap span {
-
       padding: 14px;
-
       background: #f7f8fb;
-
       color: #667085;
-
     }
 
     input {
-
       width: 100%;
-
       min-width: 0;
-
       padding: 14px;
-
       border: 0;
-
       outline: none;
-
       font-size: 17px;
-
       background: white;
-
     }
 
     .input-wrap:focus-within {
-
       border-color: #16815f;
-
     }
 
     button {
-
       width: 100%;
-
       padding: 16px;
-
       border: 0;
-
       border-radius: 10px;
-
       background: #147d60;
-
       color: white;
-
       font-size: 16px;
-
       font-weight: bold;
-
       cursor: pointer;
-
     }
 
     button:hover {
-
       background: #10664e;
-
     }
 
     .results {
-
       display: grid;
-
       grid-template-columns: 1fr 1fr;
-
       gap: 12px;
-
       margin-top: 24px;
-
     }
 
     .result {
-
       padding: 17px;
-
       background: #f0f8f4;
-
       border-radius: 12px;
-
       overflow-wrap: anywhere;
-
     }
 
     .result small {
-
       display: block;
-
       color: #667085;
-
       margin-bottom: 10px;
-
     }
 
     .result strong {
-
       font-size: clamp(18px, 4vw, 25px);
-
     }
 
     .profit {
-
       color: #147d60;
-
     }
 
     .note {
-
       color: #667085;
-
       font-size: 13px;
-
       line-height: 1.6;
-
       margin-top: 20px;
-
     }
 
     #error {
-
       color: #b42318;
-
       font-size: 14px;
+    }
 
+    .info {
+      margin-top: 24px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 14px;
+      line-height: 1.7;
+    }
+
+    .info h2 {
+      font-size: 21px;
     }
 
     footer {
-
       text-align: center;
-
       color: #667085;
-
       font-size: 13px;
-
       padding: 25px;
-
     }
 
     @media (max-width: 420px) {
-
       .card {
-
         padding: 18px;
-
       }
 
       .results {
-
         grid-template-columns: 1fr;
-
       }
-
     }
-
   </style>
-
 </head>
 
 <body>
-
   <header>Margin<span>Pilot</span></header>
 
   <main>
-
     <section class="intro">
-
       <h1>Verstehe deinen Gewinn.</h1>
-
       <p>
-
         Berechne deinen Gewinn, deine Gewinnmarge
-
         und deinen Preisaufschlag in Sekunden.
-
         Kostenlos und einfach.
-
       </p>
-
     </section>
 
     <section class="card">
-
       <div class="field">
-
         <label for="cost">Einkaufspreis pro Stück</label>
-
         <div class="input-wrap">
-
           <span>CHF</span>
-
           <input id="cost" type="number" min="0"
-
             step="0.01" value="40" inputmode="decimal">
-
         </div>
-
       </div>
 
       <div class="field">
-
         <label for="price">Verkaufspreis pro Stück</label>
-
         <div class="input-wrap">
-
           <span>CHF</span>
-
           <input id="price" type="number" min="0"
-
             step="0.01" value="70" inputmode="decimal">
-
         </div>
-
       </div>
 
       <button id="calculate" type="button">
-
         Gewinn berechnen
-
       </button>
 
       <p id="error" role="alert" hidden></p>
 
       <div class="results" aria-live="polite">
-
         <div class="result">
-
           <small>Gewinn pro Stück</small>
-
           <strong class="profit" id="profit">CHF 30.00</strong>
-
         </div>
 
         <div class="result">
-
           <small>Gewinnmarge</small>
-
           <strong id="margin">42.86 %</strong>
-
         </div>
 
         <div class="result">
-
           <small>Preisaufschlag</small>
-
           <strong id="markup">75.00 %</strong>
-
         </div>
 
         <div class="result">
-
           <small>Verkaufspreis</small>
-
           <strong id="selling">CHF 70.00</strong>
-
         </div>
-
       </div>
 
       <p class="note">
-
-        Hinweis: Die Berechnung berücksichtigt nur den
-
-        eingegebenen Einkaufspreis. Weitere Kosten,
-
-        Gebühren und Steuern sind nicht enthalten.
-
-        Die Gewinnmarge bezieht sich auf den Verkaufspreis;
-
-        der Preisaufschlag bezieht sich auf den Einkaufspreis.
-
+        Die Berechnung berücksichtigt nur den Einkaufspreis.
+        Zusätzliche Kosten, Gebühren und Steuern sind nicht
+        enthalten. Die Gewinnmarge bezieht sich auf den
+        Verkaufspreis, der Preisaufschlag auf den Einkaufspreis.
       </p>
-
     </section>
 
+    <section class="info">
+      <h2>Wie berechnet man die Gewinnmarge?</h2>
+      <p>
+        Die Gewinnmarge zeigt, welcher Anteil des Verkaufspreises
+        nach Abzug des Einkaufspreises übrig bleibt.
+      </p>
+      <p>
+        <strong>Gewinn:</strong> Verkaufspreis minus Einkaufspreis.
+      </p>
+      <p>
+        <strong>Gewinnmarge:</strong> Gewinn geteilt durch
+        Verkaufspreis, multipliziert mit 100.
+      </p>
+      <p>
+        <strong>Preisaufschlag:</strong> Gewinn geteilt durch
+        Einkaufspreis, multipliziert mit 100.
+      </p>
+      <p>
+        Beispiel: Kaufst du ein Produkt für 40 CHF und verkaufst
+        es für 70 CHF, beträgt der Gewinn vor weiteren Kosten
+        30 CHF und die Gewinnmarge rund 42,86 %.
+      </p>
+    </section>
   </main>
 
   <footer>
-
     MarginPilot · Einfacher rechnen, besser planen.
-
   </footer>
 
   <script>
-
     const costInput = document.getElementById("cost");
-
     const priceInput = document.getElementById("price");
-
     const error = document.getElementById("error");
 
     function money(value) {
-
       return new Intl.NumberFormat("de-CH", {
-
         style: "currency",
-
         currency: "CHF"
-
       }).format(value);
-
     }
 
     function calculate() {
-
       const cost = Number(costInput.value);
-
       const price = Number(priceInput.value);
 
       if (
-
         costInput.value.trim() === "" ||
-
         priceInput.value.trim() === "" ||
-
         !Number.isFinite(cost) ||
-
         !Number.isFinite(price) ||
-
         cost < 0 ||
-
         price < 0
-
       ) {
-
         error.textContent =
-
           "Bitte gib gültige, nicht negative Preise ein.";
-
         error.hidden = false;
-
         return;
-
       }
 
       if (price === 0) {
-
         error.textContent =
-
           "Der Verkaufspreis muss größer als null sein.";
-
         error.hidden = false;
-
         return;
-
       }
 
       error.hidden = true;
 
       const profit = price - cost;
-
       const margin = (profit / price) * 100;
-
       const markup = cost > 0
-
         ? (profit / cost) * 100
-
         : null;
 
       document.getElementById("profit").textContent =
-
         money(profit);
 
       document.getElementById("margin").textContent =
-
         margin.toFixed(2) + " %";
 
       document.getElementById("markup").textContent =
-
         markup === null
-
           ? "Nicht definiert"
-
           : markup.toFixed(2) + " %";
 
       document.getElementById("selling").textContent =
-
         money(price);
-
     }
 
     document.getElementById("calculate")
-
       .addEventListener("click", calculate);
 
     costInput.addEventListener("input", calculate);
-
     priceInput.addEventListener("input", calculate);
 
     calculate();
-
   </script>
-
 </body>
-
 </html>
